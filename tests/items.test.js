@@ -3,11 +3,11 @@ import supertest from "supertest";
 import connection from "../src/database.js";
 
 beforeEach(async () => {
-  await connection.query(`DELETE FROM items WHERE text = 'teste'`);
+  await connection.query(`DELETE FROM items`);
 });
 
 afterAll(async () => {
-  await connection.query(`DELETE FROM items WHERE text = 'teste'`);
+  await connection.query(`DELETE FROM items`);
   connection.end();
 });
 
