@@ -23,3 +23,18 @@ describe("GET /items", () => {
     );
   });
 });
+
+describe("POST /items", () => {
+  it("returns status 201 if param is valid", async () => {
+    const body = { text: "test" };
+    const result = await supertest(app).post("/items").send(body);
+
+    expect(result.status).toEqual(201);
+  });
+
+  it("returns status 400 for empty params", async () => {
+    const body = {};
+    const result = await supertest(app).post("/items").send(body);
+    expect(result.status).toEqual(400);
+  });
+});

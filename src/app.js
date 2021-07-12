@@ -17,4 +17,23 @@ app.get("/items", async (req, res) => {
   }
 });
 
+app.post("/items", async (req, res) => {
+  const { text } = req.body;
+  if (text && text.trim().length === 0) {
+    res.sendStatus(400);
+  } else if (!text) {
+    res.sendStatus(400);
+  } else {
+    try {
+      const result = await connection.query(
+        `INSERT INTO items (text) VALUES ($1)`,
+        [text]
+      );
+
+      res.sendStatus(201);
+    } catch {
+      res.sendStatus(500);
+    }
+  }
+});
 export default app;
